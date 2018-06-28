@@ -29,7 +29,7 @@ Khởi tạo client chấp nhận một tập hợp các mảng thuộc tính:
 `base_uri`
 : 
 
-(string|UriInterface) URI cơ bản của client được kết hợp trong các URI quan hệ. Có thể là một chuỗi hoặc một thực thể trong UriInterface.Khi một URI quan hệ được khởi tạo từ một client,client sẽ biên dịch URI cơ bản với URI quan hệ sử dụng các quy tắc được miêu tả trong [RFC 3986, section 2][2].
+(string|UriInterface) URI cơ bản của client được kết hợp trong các URI tương đối. Có thể là một chuỗi hoặc một thể hiện của UriInterface.Khi một URI tương đối được khởi tạo từ một client,client sẽ biên dịch URI cơ bản với URI tương đối sử dụng các quy tắc được miêu tả trong [RFC 3986, section 2][2].
     
     
     // Khởi tạo một client với URI cơ bản
@@ -80,7 +80,7 @@ Bạn có thể khởi tạo 1 request và sau đó gửi request đó với cli
     $response = $client->send($request, ['timeout' => 2]);
     
 
-Các đối tượng phía client cung cấp một deal linh hoạt trong việc request được chuyển đổi bao gồm các thuộc tính request mặc định ra sao , bộ xử lý ngăn xếp mặc định được sử dụng bởi từng request , và một URI cơ bản cho phép bạn gửi các request với các URI quan hệ.
+Các đối tượng phía client cung cấp một **deal** linh hoạt trong việc request được chuyển đổi bao gồm các thuộc tính request mặc định ra sao , bộ xử lý ngăn xếp mặc định được sử dụng bởi từng request , và một URI cơ bản cho phép bạn gửi các request với các URI tương đối.
 
 Bạn có thẻ tìm thấy nhiều tài liệu vè middleware client trong tài liệu của trang [_Handlers and Middleware_][3].
 
@@ -214,13 +214,13 @@ Hoặc sử dụng closure sẽ trả về một promise khi cái pool gọi clo
 
 ## Sử dụng các response
 
-Trong các ví dụ trước , chúng ta đã lấy một biến `$response` hoặc chúng ta đã lấy được một response từ một promise. Đối tượng response bổ sung một chuẩn response PSR-7,`PsrHttpMessageResponseInterface`,và chứa một vài thông tin hữu dụng.
+Trong các ví dụ trước , chúng ta đã lấy một biến `$response` hoặc chúng ta đã lấy được một response từ một promise. Đối tượng response bổ sung một chuẩn response PSR-7,`PsrHttpMessageResponseInterface`,và chứa một vài thông tin hữu ích.
 
 Bạn có thể lấy mã trạng thái và  cụm từ kết luận của response:
     
     
     $code = $response->getStatusCode(); // 200
-    $reason = $response->getReasonPhrase(); // OK
+    $reason = $response->getReasonPhrase(); // OK   
     
 
 Bạn có thể lấy headers từ response:
@@ -361,7 +361,6 @@ Bạn có thể gửi các file cùng với một form  (`multipart/form-data` P
 
 ## Cookies
 
-Guzzle can maintain a cookie session for you if instructed using the `cookies` request option. When sending a request, the `cookies` option must be set to an instance of `GuzzleHttpCookieCookieJarInterface`.
 Guzzle có thể duy trì một phiên cookie dành cho bạn nếu được hướng dẫn sử dụng tùy chọn request `cookie`. Khi gửi request, tùy chọn `cookie` phải được đặt thành một thể hiện của `GuzzleHttpCookieCookieJarInterface`.
     
     
@@ -372,7 +371,7 @@ Guzzle có thể duy trì một phiên cookie dành cho bạn nếu được hư
     ]);
     
 
-Bạn có thể đặt cookie thành true trong một trình tạo client nếu bạn muốn sử dụng một bình cookie được chia sẻ cho tất cả các request.
+Bạn có thể đặt cookie thành true trong một trình tạo client nếu bạn muốn sử dụng một cookie jar được chia sẻ cho tất cả các request.
     
     
     // Use a shared client cookie jar
